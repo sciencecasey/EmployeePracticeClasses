@@ -1,5 +1,10 @@
 
 /**
+ * takes a 4 String representations of street, city, stateCode, and postal code
+ * and returns separated fields through getters.  
+ * precondition: Each field should be delimited by a semicolon.
+ * precondition: each field should be a string
+ * precondition: zip code should be only 5 units long 
  * @author CaseyJayne
  *
  */
@@ -11,80 +16,93 @@ public class AddressParse {
    
    //Constructor objects
     AddressParse(String userInput){
+       userInput = userInput.trim();
        //index for the street
        int startFrom = 0;
        int endAt = userInput.indexOf(';');
-       street = userInput.substring(startFrom, endAt);
+       this.street = userInput.
+             substring(startFrom, endAt).trim();
        startFrom = endAt+1;
        endAt = userInput.indexOf(';', startFrom);
-       city = userInput.substring(startFrom, endAt);
+       this.city = userInput.
+             substring(startFrom, endAt).trim();
        startFrom = endAt+1;
        endAt = userInput.indexOf(';', startFrom); //
-       stateCode = userInput.substring(startFrom, endAt);
+       this.stateCode = userInput.
+             substring(startFrom, endAt).
+             toUpperCase().trim();
        startFrom = endAt + 1;
-       postalCode = userInput.substring(startFrom);
+       this.postalCode = userInput.substring(startFrom).trim();
+       if (this.postalCode.length()>5) {
+          this.postalCode= this.postalCode.substring(0,4);
+       }
     }
     //default Constructor
     AddressParse(){
-       street = "<couldn't parse>";
-       city = "<couldn't parse>";
-       stateCode = "<couldn't parse>";
-       postalCode = "<couldn't parse>";
+       this.street = "<couldn't parse>";
+       this.city = "<couldn't parse>";
+       this.stateCode = "<couldn't parse>";
+       this.postalCode = "<couldn't parse>";
     }
     
     
     //Override toString
     public String toString() {
-       return street+ " " +city+ ", " +stateCode+ " " +postalCode; 
+       return this.street+ " " +this.city+ ", " +this.stateCode+ " " +this.postalCode; 
     }
     
        /**
-    * @return the street
-    */
+   * @return the street
+   */
    public String getStreet() {
-      return street;
+      return this.street;
    }
    /**
-    * @param street the street to set
-    */
+   * @param street the street to set
+   */
    public void setStreet(String street) {
       this.street = street;
    }
    /**
-    * @return the city
-    */
+   * @return the city
+   */
    public String getCity() {
-      return city;
+      return this.city;
    }
    /**
-    * @param city the city to set
-    */
+   * @param city the city to set
+   */
    public void setCity(String city) {
       this.city = city;
    }
    /**
-    * @return the stateCode
-    */
+   * @return the stateCode
+   */
    public String getStateCode() {
-      return stateCode;
+      return this.stateCode;
    }
    /**
-    * @param stateCode the stateCode to set
-    */
+   * @param stateCode the stateCode to set
+   * changes to upperCase and trims
+   */
    public void setStateCode(String stateCode) {
-      this.stateCode = stateCode;
+      this.stateCode = stateCode.toUpperCase().trim();
    }
    /**
-    * @return the postalCode
-    */
+   * @return the postalCode
+   */
    public String getPostalCode() {
-      return postalCode;
+      return this.postalCode;
    }
    /**
-    * @param postalCode the postalCode to set
+    * @param postalCode the postalCode to set and cuts to 5 digits
     */
    public void setPostalCode(String postalCode) {
-      this.postalCode = postalCode;
+      this.postalCode = postalCode.trim();
+      //trim to 5 digit
+      if (this.postalCode.length()>5) {
+         this.postalCode= this.postalCode.substring(0,4);
+      }
    }
 
 }
